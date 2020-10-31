@@ -1,1 +1,97 @@
 This is lab notebook of Project 1.
+Step 0: making directory, downloading files
+
+To create a folder, use mkdir command:
+  mkdir BI_Practice_2020
+  cd BI_Practice_2020
+  mkdir Project_1
+To download files, use:
+  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/*_genomic.fna.gz
+  wget ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/*_genomic.gff.gz
+  wget http://public.dobzhanskycenter.ru/mrayko/amp_res_1.fastq.zip
+  wget http://public.dobzhanskycenter.ru/mrayko/amp_res_2.fastq.zip
+  
+Step 1: looking at the data
+
+Let's take a closer lokk at the data structure:
+ head -20 GCF_000005845.2_ASM584v2_genomic.fna (insert screens)
+ head -20 GCF_000005845.2_ASM584v2_genomic.gff
+Also we want to know how many lines contain our files:
+ wc -l GCF_000005845.2_ASM584v2_genomic.fna 58022
+ wc -l GCF_000005845.2_ASM584v2_genomic.gff 10129
+ wc -l amp_res_1.fastq 1823504
+ wc -l amp_res_2.fastq 1823504
+ 
+Step 2: Inspect raw sequencing data with fastqc. Filtering the reads.
+
+  fastqc amp_res_1.fastq
+We didn't use -o argument. For our simple task it is acceptable to store output data in our working directory.
+  fastqc amp_res_2.fastq
+# Kamilla: write down the results.
+ 
+Step 3: Reads filtering
+
+We used TrimmomaticPE v.0.39 for filtering.
+
+Following parameters were used:
+1) Cut bases off the start of a read if quality below 20
+2) Cut bases off the end of a read if quality below 20
+3) Trim reads using a sliding window approach, with window size 10 and average quality within the window 20.
+4) Drop the read if it is below length 20.
+
+  TrimmomaticPE -threads 6 -trimlog filtering_log.txt -quiet amp_res_1.fastq  amp_res_2.fastq -baseout amp_res_filtered.fq.gz LEADING:20 TRAILING:20 SLIDINGWINDOW:10:20 MINLEN:20
+
+# Kamilla: specify parameters we are using
+
+Step 4: Indexing and aligning reads. SAM and BAM
+  bwa index GCF_000005845.2_ASM584v2_genomic.fna  # to build index of reference genome
+
+Aligning:
+  bwa mem -t 6  GCF_000005845.2_ASM584v2_genomic.fna /home/ignat/BI_Practice_2020/Project_1/fastqc_res/amp_res_filtered_1P.fq /home/ignat/BI_Practice_2020/Project_1/fastqc_res/amp_res_filtered_2P.fq > alignment_res.sam
+
+Compressing result:
+  samtools view -S -b alignment_res.sam > alignment_res.bam
+  samtools flagstat alignment_res.bam > alignment_stats.txt
+
+99.87% of reads are mapped. 0.11% of reads are singletons.
+!In general genomic assembly, a singlton is a read that did not assemble into a contig or map to a reference. It is a contig of only 1 read.
+
+Sorting and indexing BAM file:
+  samtools sort alignment_res.bam -o alignment_sorted.bam
+For newer versions of samtools, -o is required.
+  samtools index alignment_sorted.bam
+Installing IGV: download .gz, unzip, execute ./igv.sh. Don't forget to make it executable (chmod +x)!
+ # Ignat: insert some screens from IGV
+Making plieup file:
+ samtools mpileup -f GCF_000005845.2_ASM584v2_genomic.fna alignment_sorted.bam  > my.mpileup
+
+Installing VarScan: sudo apt-get install varscan
+  varscan mpileup2snp my.mpileup --min-var-freq 0.95 --p-value 0.99 --variants --output.vcf 1 > var_scan_4_res.vcf
+    Only SNPs will be reported
+    Min coverage:	8
+    Min reads2:	2
+    Min var freq:	0.95
+    Min avg qual:	15
+    P-value thresh:	0.99
+    Reading input from my.mpileup
+    4641343 bases in pileup file
+    8 variant positions (6 SNP, 2 indel)
+    1 were failed by the strand-filter
+    5 variant positions reported (5 SNP, 0 indel)
+
+To correct reading of .vcf file, it must be indexed. There are 2 ways to do this: using tabix or using igvtools. We used igvtools to obtain an index.
+We found 5 indels on following postions:
+ 93043 (ECOCYC:EG10341,EcoGene:EG10341,GeneID:944799 Name: ftsI gbkey: Gene gene: ftsI gene_biotype: protein_coding gene_synonym: ECK0085,pbpB,sep)
+ 482698 (none)
+ 852762 (none)
+ 3535147 (none)
+ 4390754 (none)
+ # Ignat: insert screens
+ 
+ 
+ 
+ 
+    
+ 
+
+ 

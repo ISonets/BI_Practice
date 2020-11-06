@@ -53,7 +53,9 @@ We use Fastqc for the quality control \cite{fqc} (See \ref{sec:supplement}).  Wi
 \subsection{Aligning sequences to reference}
 As we need to map the data from the resistant strain to the reference sequence, we use the aligner called BWA-MEM \cite{bwa}. In order to prepare the data we use \cite{sam}. This utility allows to index and sort bam-format files.
 
-VarScan is used to find SNP \cite{var}. VarScan allows to change the threshold which regulates if  the position is called mutation. We decided to use --min-var-frequency=0.95. 
+VarScan is used to find SNP \cite{var}. VarScan allows to change the threshold which regulates if  the position is called mutation. We decided to use --min-var-frequency=0.95.
+
+More information about parameters and using tools is in the lab journal.  
 
 \section{Results}
 First, we improve sequencing data quality of the resistant strain and index data. After, we align the sequence from resistant strain to the reference sequence to detect variants. 
@@ -187,7 +189,7 @@ The UniProt Consortium, UniProt: a worldwide hub of protein knowledge, Nucleic A
  \bibitem{bwamsnotes}
 Misawa, K., Tarumoto, N., Tamura, S. et al. Single nucleotide polymorphisms in genes encoding penicillin-binding proteins in beta-lactamase-negative ampicillin-resistant Haemophilus influenzae in Japan. BMC Res Notes 11, 53 (2018). https://doi.org/10.1186/s13104-018-3169-0
 
-\bibitem{susc}
+\bibitem{sucs}
 Mario L. Arrieta-Ortiz, Min Pan, Amardeep Kaur, Vivek Srinivas, Ananya Dash, Selva Rupa Christinal Immanuel, Nitin S. Baliga.  Disrupting the ArcA regulatory network increases tetracycline susceptibility of TetR Escherichia coli. 
 bioRxiv 2020.08.31.275693; doi: https://doi.org/10.1101/2020.08.31.275693 
 

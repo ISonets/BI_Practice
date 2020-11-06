@@ -13,9 +13,10 @@ To download files, use:
   
 Step 1: looking at the data
 
-Let's take a closer lokk at the data structure:
+Let's take a closer look at the data structure:
  head -20 GCF_000005845.2_ASM584v2_genomic.fna (insert screens)
  head -20 GCF_000005845.2_ASM584v2_genomic.gff
+ Nothing special, it's genome annotation and genome files. Look as it should be.
 Also we want to know how many lines contain our files:
  wc -l GCF_000005845.2_ASM584v2_genomic.fna 58022
  wc -l GCF_000005845.2_ASM584v2_genomic.gff 10129
@@ -41,7 +42,7 @@ Following parameters were used:
 
   TrimmomaticPE -threads 6 -trimlog filtering_log.txt -quiet amp_res_1.fastq  amp_res_2.fastq -baseout amp_res_filtered.fq.gz LEADING:20 TRAILING:20 SLIDINGWINDOW:10:20 MINLEN:20
 
-# Kamilla: specify parameters we are using
+Also for faster working we used 6 threads.
 
 Step 4: Indexing and aligning reads. SAM and BAM
   bwa index GCF_000005845.2_ASM584v2_genomic.fna  # to build index of reference genome
@@ -82,10 +83,10 @@ Installing VarScan: sudo apt-get install varscan
 To correct reading of .vcf file, it must be indexed. There are 2 ways to do this: using tabix or using igvtools. We used igvtools to obtain an index.
 We found 5 indels on following postions:
  93043 (ECOCYC:EG10341,EcoGene:EG10341,GeneID:944799 Name: ftsI gbkey: Gene gene: ftsI gene_biotype: protein_coding gene_synonym: ECK0085,pbpB,sep)
- 482698 (none)
- 852762 (none)
- 3535147 (none)
- 4390754 (none)
+ 482698 (arcB)
+ 852762 (rybA)
+ 3535147 (envZ)
+ 4390754 (rsgA)
  # Ignat: insert screens
  
  

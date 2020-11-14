@@ -1,0 +1,158 @@
+# Kamilla: Find out what strains were in this season’s (2017/2018) vaccine. Was that one of the flu strains covered by this vaccine?)
+# Also for Kamilla: do fastQC for lulz
+1. Inspect the data from your roommate
+wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR170/001/SRR1705851/SRR1705851.fastq.gz
+gunzip SRR1705851.fastq.gz
+2. Align your roommate’s data to the reference sequence
+# add .jnb script here
+bwa index H3N2_4_s.fasta
+bwa mem H3N2_HA_4_s.fasta roommate.fastq  | samtools view -S -b - | samtools sort -o roommate.bam
+# to save output of flagstat, use:
+scipt flagstat_res.log
+  samtools flagstat roommate
+exit
+samtools index roommate.bam
+3. Look for common variants with VarScan
+samtools mpileup -d 0 -f H3N2_HA_4_s.fasta roommate.bam > my.mpileup
+(What is the desired value of d if we want to keep all possible variants, given the length of the reference sequence, the number of reads, and the average read length?)
+0
+varscan mpileup2snp my.mpileup --min-var-freq 0.95 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res.vcf
+nly SNPs will be reported
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.95
+Min avg qual:	15
+P-value thresh:	0.99
+Reading input from my.mpileup
+1665 bases in pileup file
+5 variant positions (5 SNP, 0 indel)
+0 were failed by the strand-filter
+5 variant positions reported (5 SNP, 0 indel)
+cat var_scan_H3_N2_res.vcf | awk 'NR>0 {print $1, $2, $4, $5}'
+Chrom Position Var Cons:Cov:Reads1:Reads2:Freq:P-value
+KF848938.1 72 G G:16794:6:16787:99.96%:9.8E-1
+KF848938.1 117 T T:20663:36:20625:99.82%:9.8E-1
+KF848938.1 774 C C:38191:8:38177:99.96%:9.8E-1
+KF848938.1 999 T T:32115:40:32070:99.86%:9.8E-1
+KF848938.1 1260 C C:23033:2:23019:99.94%:9.8E-1
+# Don't forget to make .idx file for .vcf file. It is obligatory for correct IGV responsing and working.
+1.Position: 72
+  Reference: A*
+  Alternate: G
+  Type: SNP (CAA => CGA)
+2.Position: 117
+  Reference: C*
+  Alternate: T
+  Type: SNP (CCA => CTA)
+3.Position: 774
+  Reference: T*
+  Alternate: C
+  Type: SNP (TTA => TCA)
+4.Position: 999
+  Reference: C*
+  Alternate: T
+  Type: SNP (GCG => GTG)
+5.Position: 1260
+  Reference: A*
+  Alternate: C
+  Type: SNP (TAT => TCT)
+  # Kamilla: check for amino acids using codon table
+ 4. Look for rare variants with VarScan 
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res_0001.vcf
+Only SNPs will be reported
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.99
+Reading input from my.mpileup
+1665 bases in pileup file
+102 variant positions (98 SNP, 4 indel)
+0 were failed by the strand-filter
+98 variant positions reported (98 SNP, 0 indel)
+We also found 4 indels. let's check it out.
+varscan mpileup2indel my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res_0001_indel.vcf
+Using cat to get data from 1st.2nd,4th,4th,10th column.
+cat var_scan_H3_N2_res_0001.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_0001_res.txt
+cat var_scan_H3_N2_res_0001_indel.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_0001_indel_res.txt
+# Kamilla: read res.txt files, include results in the report
+5. Inspect and align the control sample sequencing data
+wget ... (compltete)
+bwa mem ref/H3N2_HA_4_s.fasta SRR1705858.fastq | samtools view -bS - | samtools sort -o SRR1705858.sorted.bam
+bwa mem ref/H3N2_HA_4_s.fasta SRR1705859.fastq | samtools view -bS - | samtools sort -o SRR1705859.sorted.bam
+bwa mem ref/H3N2_HA_4_s.fasta SRR1705860.fastq | samtools view -bS - | samtools sort -o SRR1705860.sorted.bam
+Indexing .sorted.bam:
+samtools index SRR1705858.sorted.bam
+samtools index SRR1705859.sorted.bam
+samtools index SRR1705860.sorted.bam
+mkdir isogenic
+cd isogenic/
+mkdir 58
+mkdir 59
+mkdir 60
+cd 58
+samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705858.sorted.bam > my.mpileup
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR58.vcf
+Only SNPs will be reported
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.99
+Reading input from my.mpileup
+1665 bases in pileup file
+249 variant positions (248 SNP, 1 indel)
+3 were failed by the strand-filter
+245 variant positions reported (245 SNP, 0 indel)
+cat var_scan_SRR58.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR58_res.txt
+cd ..
+cd 59
+samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705859.sorted.bam > my.mpileup
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR59.vcf
+Only SNPs will be reported
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.99
+Reading input from my.mpileup
+1665 bases in pileup file
+265 variant positions (264 SNP, 1 indel)
+3 were failed by the strand-filter
+261 variant positions reported (261 SNP, 0 indel)
+cat var_scan_SRR59.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR59_res.txt
+cd ..
+cd 60
+samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705860.sorted.bam > my.mpileup
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR60.vcf
+Only SNPs will be reported
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.99
+Reading input from my.mpileup
+1665 bases in pileup file
+254 variant positions (253 SNP, 1 indel)
+1 were failed by the strand-filter
+252 variant positions reported (252 SNP, 0 indel)
+cat var_scan_SRR60.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR60_res.txt
+### BUT!!!! ####
+rscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_SRR58_alt.vcf
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from my.mpileup
+1665 bases in pileup file
+58 variant positions (58 SNP, 0 indel)
+1 were failed by the strand-filter
+57 variant positions reported (57 SNP, 0 indel)
+What and WHY is the difference? Standard p-value thr. == 0.99, so nothing is changed. But results ARE different.
+# Do epitope mapping after consulting with M.Rayko.
+# Ignat: do epitope mapping
+
+

@@ -138,7 +138,7 @@ Reading input from my.mpileup
 252 variant positions reported (252 SNP, 0 indel)
 cat var_scan_SRR60.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR60_res.txt
 ### BUT!!!! ####
-rscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_SRR58_alt.vcf
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_SRR58_alt.vcf
 Only SNPs will be reported
 Warning: No p-value threshold provided, so p-values will not be calculated
 Min coverage:	8

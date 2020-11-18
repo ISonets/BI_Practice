@@ -16,19 +16,18 @@ samtools index roommate.bam
 samtools mpileup -d 0 -f H3N2_HA_4_s.fasta roommate.bam > my.mpileup
 (What is the desired value of d if we want to keep all possible variants, given the length of the reference sequence, the number of reads, and the average read length?)
 0
-varscan mpileup2snp my.mpileup --min-var-freq 0.95 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res.vcf
-nly SNPs will be reported
+varscan mpileup2snp my.mpileup --min-var-freq 0.95  --variants --output-vcf 1 > var_scan_H3N2_res.vcf
+Only SNPs will be reported
 Min coverage:	8
 Min reads2:	2
 Min var freq:	0.95
 Min avg qual:	15
-P-value thresh:	0.99
 Reading input from my.mpileup
 1665 bases in pileup file
 5 variant positions (5 SNP, 0 indel)
 0 were failed by the strand-filter
 5 variant positions reported (5 SNP, 0 indel)
-cat var_scan_H3_N2_res.vcf | awk 'NR>0 {print $1, $2, $4, $5}'
+cat var_scan_H3_N2_res.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}'
 Chrom Position Var Cons:Cov:Reads1:Reads2:Freq:P-value
 KF848938.1 72 G G:16794:6:16787:99.96%:9.8E-1
 KF848938.1 117 T T:20663:36:20625:99.82%:9.8E-1
@@ -58,20 +57,33 @@ KF848938.1 1260 C C:23033:2:23019:99.94%:9.8E-1
   Type: SNP (TAT => TCT)
   # Kamilla: check for amino acids using codon table
  4. Look for rare variants with VarScan 
-varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res_0001.vcf
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_H3N2_res_0001.vcf
 Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
 Min coverage:	8
 Min reads2:	2
 Min var freq:	0.001
 Min avg qual:	15
-P-value thresh:	0.99
+P-value thresh:	0.01
 Reading input from my.mpileup
 1665 bases in pileup file
-102 variant positions (98 SNP, 4 indel)
+23 variant positions (21 SNP, 2 indel)
 0 were failed by the strand-filter
-98 variant positions reported (98 SNP, 0 indel)
-We also found 4 indels. let's check it out.
-varscan mpileup2indel my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_H3_N2_res_0001_indel.vcf
+21 variant positions reported (21 SNP, 0 indel)
+We also found 2 indels. let's check it out.
+varscan mpileup2indel my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_H3N2_res_0001_indel.vcf
+Only indels will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from my.mpileup
+1665 bases in pileup file
+23 variant positions (21 SNP, 2 indel)
+0 were failed by the strand-filter
+2 variant positions reported (0 SNP, 2 indel)
 Using cat to get data from 1st.2nd,4th,4th,10th column.
 cat var_scan_H3_N2_res_0001.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_0001_res.txt
 cat var_scan_H3_N2_res_0001_indel.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_0001_indel_res.txt
@@ -92,53 +104,7 @@ mkdir 59
 mkdir 60
 cd 58
 samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705858.sorted.bam > my.mpileup
-varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR58.vcf
-Only SNPs will be reported
-Min coverage:	8
-Min reads2:	2
-Min var freq:	0.001
-Min avg qual:	15
-P-value thresh:	0.99
-Reading input from my.mpileup
-1665 bases in pileup file
-249 variant positions (248 SNP, 1 indel)
-3 were failed by the strand-filter
-245 variant positions reported (245 SNP, 0 indel)
-cat var_scan_SRR58.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR58_res.txt
-cd ..
-cd 59
-samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705859.sorted.bam > my.mpileup
-varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR59.vcf
-Only SNPs will be reported
-Min coverage:	8
-Min reads2:	2
-Min var freq:	0.001
-Min avg qual:	15
-P-value thresh:	0.99
-Reading input from my.mpileup
-1665 bases in pileup file
-265 variant positions (264 SNP, 1 indel)
-3 were failed by the strand-filter
-261 variant positions reported (261 SNP, 0 indel)
-cat var_scan_SRR59.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR59_res.txt
-cd ..
-cd 60
-samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705860.sorted.bam > my.mpileup
-varscan mpileup2snp my.mpileup --min-var-freq 0.001 --p-value 0.99 --variants --output-vcf 1 > var_scan_SRR60.vcf
-Only SNPs will be reported
-Min coverage:	8
-Min reads2:	2
-Min var freq:	0.001
-Min avg qual:	15
-P-value thresh:	0.99
-Reading input from my.mpileup
-1665 bases in pileup file
-254 variant positions (253 SNP, 1 indel)
-1 were failed by the strand-filter
-252 variant positions reported (252 SNP, 0 indel)
-cat var_scan_SRR60.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR60_res.txt
-### BUT!!!! ####
-varscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_SRR58_alt.vcf
+varscan mpileup2snp my.mpileup --min-var-freq 0.001 --variants --output-vcf 1 > var_scan_SRR58.vcf
 Only SNPs will be reported
 Warning: No p-value threshold provided, so p-values will not be calculated
 Min coverage:	8
@@ -151,8 +117,43 @@ Reading input from my.mpileup
 58 variant positions (58 SNP, 0 indel)
 1 were failed by the strand-filter
 57 variant positions reported (57 SNP, 0 indel)
-What and WHY is the difference? Standard p-value thr. == 0.99, so nothing is changed. But results ARE different.
-# Do epitope mapping after consulting with M.Rayko.
+cat var_scan_SRR58.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR58_res.txt
+cd ..
+cd 59
+samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705859.sorted.bam > my.mpileup
+varscan mpileup2snp my.mpileup --min-var-freq 0.001  --variants --output-vcf 1 > var_scan_SRR59.vcf
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from my.mpileup
+1665 bases in pileup file
+54 variant positions (54 SNP, 0 indel)
+2 were failed by the strand-filter
+52 variant positions reported (52 SNP, 0 indel)
+cat var_scan_SRR59.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR59_res.txt
+cd ..
+cd 60
+samtools mpileup -d 0 -f ../../ref/H3N2_HA_4_s.fasta SRR1705860.sorted.bam > my.mpileup
+varscan mpileup2snp my.mpileup --min-var-freq 0.001  --variants --output-vcf 1 > var_scan_SRR60.vcf
+Only SNPs will be reported
+Warning: No p-value threshold provided, so p-values will not be calculated
+Min coverage:	8
+Min reads2:	2
+Min var freq:	0.001
+Min avg qual:	15
+P-value thresh:	0.01
+Reading input from my.mpileup
+1665 bases in pileup file
+61 variant positions (61 SNP, 0 indel)
+0 were failed by the strand-filter
+61 variant positions reported (61 SNP, 0 indel)
+cat var_scan_SRR60.vcf | awk 'NR>24 {print $1, $2, $4, $5, $10}' > varscan_SRR60_res.txt
+
 # Ignat: do epitope mapping
+
 
 

@@ -59,55 +59,99 @@ In order to to map the data from the resistant strain to the reference sequence,
 		SRR1705860 & 249964  & \\
 		\hline
 	\end{tabular}
+\caption{Data}
 \end{table}
  
 \subsection{Common variants}
-The  data labeled SRR1705851 is used to detect the variants.  The parameter --min-var-frequency equals 0.95 for searching common variants.  Five SNPs were reported (Table 1). 
-%These SNPs do not cause any changes. 
-
-\subsection{Rare variants}
- So, We run VarScan again, but --min-var-frequency equals 0.001. %Two SNPs are detected (Table 2). These parameter was the same for three control sequences. 
-
-
-\section{Discussion}
-% In first experience, four varians were found, however, all of them does not change anything. \\ The variant which position is 307 detected in second experience replace one aminoacid with other. This position is included in the epitope region \cite{mun}. There are wayes to avoid errors which could be detected as mutations.  For example, repeat analysis  and use control data. 
-%\section{Discussion}
-
-
-		\begin{table}
-	\centering
-	\begin{tabular}{|c|c|c|c|c|}
-		\hline
-  Position & Ref  & Alt & Triplets & Altered aminoacid\\
-	 \hline
-	 72 & A & G & CAA $\rightarrow$ CGA &  \\
-		\hline
-		  117  & C & T & CCA  $\rightarrow$  CTA & fenilalanina/fenilalanina\\
-		\hline
-		 774  & T & C & TTA $\rightarrow$   TCA & Glutamine/Glutamine\\
-		\hline
-	 999  & C & T & GCG  $\rightarrow$  GTG & leicins/leicins\\
-		\hline
-		  1260 & A & C & TAT  $\rightarrow$  TCT & Threonine/Threonine\\
-		\hline
-	\end{tabular}
-	\caption{ The variants, --min-var-frequency=0.95 }
-\end{table}
+The  data labeled SRR1705851 is used to detect the variants.  The parameter --min-var-frequency equals 0.95 for searching common variants. Five SNPs were reported (Table \ref{tab:vars}). We used the codon table to check if these mutations can affect the protein, but all these variants do not change the amino acids. 
 
 
 \begin{table}
 	\centering
 	\begin{tabular}{|c|c|c|c|c|}
 		\hline
-		 Position & Ref & Alt & Altered aminoacid & Frequency\\
+		Position & Ref  & Alt & Triplets & Amino acids\\
 		\hline
-		  307 & C & T & Proline/Serine & 0.9\\
+		72 & A & G & ACA $\rightarrow$ ACG & Threonine $\rightarrow$  Threonine \\
 		\hline
-	  %1458 & T & C & Thorazine/Thorazine & 0.84\\
+		117  & C & T & GCC  $\rightarrow$  GCT & Alanine $\rightarrow$  Alanine\\
+		\hline
+		774  & T & C & TTT $\rightarrow$   TTC & Phenylalanine $\rightarrow$  Phenylalanine\\
+		\hline
+		999  & C & T & GGC  $\rightarrow$  GGT & Glycine $\rightarrow$  Glycine \\
+		\hline
+		1260 & A & C & CTA  $\rightarrow$  CTC & Leucine $\rightarrow$  Leucine \\
 		\hline
 	\end{tabular}
-	\caption{ The variants,  --min-var-frequency=0.001 }
+	\caption{ The variants, --min-var-frequency=0.95 }
+	\label{tab:vars}
 \end{table}
+
+%These SNPs do not cause any changes. 
+
+\subsection{Rare variants}
+ Next, we run VarScan to detect rare parameters, but --min-var-frequency equals 0.001. We obtained 21 SNPs. To find the difference between real rare variants and possible sequencing error, we use three isogenic viral samples. Again, we align these samples to the reference and get SNPs.  Table\ref{tab:freqs} presents the mean and standard deviation for frequencies of detected variants. Table \ref{tab:rarevars} presents the rare SNPs with frequencies that are more than 3 standard deviations away from the averages in the reference results. 
+ 
+   %Two SNPs are detected (Table 2). These parameter was the same for three control sequences. 
+
+
+
+\begin{table} 
+	\centering
+	\begin{tabular}{|c|c|c|c|}
+		\hline
+		The control sequence & Mean frequency & Standard deviation  \\
+		%\hline
+		%SRR1705851 & 358265 & \\
+		\hline
+		SRR1705858 & 0,24928571 & 0,04716921734 \\
+		\hline
+		SRR1705859 & 0,2369230769 & 0,05237640771 \\
+		\hline
+		SRR1705860 & 0,25032787 & 0,07803775183 \\
+		\hline
+	\end{tabular}
+	\caption{Data}
+	\label{tab:freqs}
+\end{table}
+
+\begin{table}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		Position & Ref  & Alt & Triplets & Amino acids\\
+		%\hline
+		%38 & T & C & CTG  $\rightarrow$  CCG  & Leucine $\rightarrow$  Proline \\
+		\hline
+		307  & C & T & CCG  $\rightarrow$  TCG &  Proline $\rightarrow$ Serine \\
+		\hline
+		1458  & T & C & TAT $\rightarrow$   TAC &  Tyrosine $\rightarrow$ Tyrosine  \\
+	 
+		\hline
+	\end{tabular}
+	\caption{ The rare variants,  }
+	\label{tab:rarevars}
+\end{table}
+
+\section{Discussion}
+% In first experience, four varians were found, however, all of them does not change anything. \\ The variant which position is 307 detected in second experience replace one aminoacid with other. This position is included in the epitope region \cite{mun}. There are wayes to avoid errors which could be detected as mutations.  For example, repeat analysis  and use control data. 
+%\section{Discussion}
+
+ 
+
+%\begin{table}
+%	\centering
+%	\begin{tabular}{|c|c|c|c|c|}
+%		\hline
+%		 Position & Ref & Alt & Altered aminoacid & Frequency\\
+%		\hline
+%		  307 & C & T & Proline/Serine & 0.9\\
+%		\hline
+%	  %1458 & T & C & Thorazine/Thorazine & 0.84\\
+%		\hline
+%	\end{tabular}
+%	\caption{ The variants,  --min-var-frequency=0.001 }
+%\end{table}
 
  
 \newpage

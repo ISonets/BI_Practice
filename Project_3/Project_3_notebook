@@ -1,0 +1,17 @@
+1. Installing SPAdes
+  conda install -c bioconda spades
+2. FastQC and Jellyfish analysis
+zcat SRR*.gz | fastqc SRR*.gz
+Jellyfish for SRR292678 only!
+Manual: http://koke.asrc.kanazawa-u.ac.jp/HOWTO/kmer-genomesize.html
+  jellyfish count -t 8 -C -m 31 -s 2G -o SRR292678_R1_31_mer SRR292678sub_S1_L001_R1_001.fastq
+  jellyfish count -t 8 -C -m 31 -s 2G -o SRR292678_R2_31_mer SRR292678sub_S1_L001_R2_001.fastq
+  jellyfish histo -o SRR292678_R1.histo SRR292678sub_S1_L001_R1_001.fastq_31_mer
+  jellyfish histo -o SRR292678_R2.histo SRR292678sub_S1_L001_R2_001.fastq_31_mer
+Other data manipualtions in .R
+# Kamiila: FastQC read numbers 
+3. Genome assembly using SPAdes
+3.1. Uncorrected(assembler-only mode)
+spades.py --iontorrent -t 8 -m 16 --only-assembler  -1 SRR292678sub_S1_L001_R1_001.fastq -2 SRR292678sub_S1_L001_R2_001.fastq -o step3_uncorrected
+3.2. Full mode with correction
+

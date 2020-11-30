@@ -9,6 +9,7 @@ Manual: http://koke.asrc.kanazawa-u.ac.jp/HOWTO/kmer-genomesize.html
   jellyfish histo -o SRR292678_R1.histo SRR292678sub_S1_L001_R1_001.fastq_31_mer
   jellyfish histo -o SRR292678_R2.histo SRR292678sub_S1_L001_R2_001.fastq_31_mer
 Other data manipualtions in .R
+# R script  in folder, also results
 # Kamiila: FastQC read numbers 
 3. Genome assembly using SPAdes
 3.1. Uncorrected(assembler-only mode)
@@ -18,5 +19,9 @@ spades.py --iontorrent -t 8 -m 16  -1 SRR292678sub_S1_L001_R1_001.fastq -2 SRR29
 # Ignat: QUAST for all
 4. Alltogether assembly
 spades.py --iontorrent -t 8 -m 16 -1 SRR292678sub_S1_L001_R1_001.fastq -2 SRR292678sub_S1_L001_R2_001.fastq --mp1-1 SRR292862_S2_L001_R1_001.fastq --mp1-2 SRR292862_S2_L001_R2_001.fastq --mp2-1 SRR292770_S1_L001_R1_001.fastq --mp2-2 SRR292770_S1_L001_R2_001.fastq -o step_4_alltogether
-5. 
+Steps 3,4 QUAST
+quast.py contigs.fasta -o [insert dir name] # easy af
+# Data in GitHub folder
+5. Prokka
+
 

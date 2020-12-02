@@ -23,17 +23,15 @@ Steps 3,4 QUAST--DONE
 quast.py contigs.fasta -o [insert dir name] # easy af
 # Data in GitHub folder
 5. Prokka--DONE
-Kameraden, совет тем, кто будет сам делать аннотацию с Prokka. Она работает с Perl v5.22. если вы обновлялись,у вас Perl 5.26
-Поэтому,если вылазят тонны ошибок что-то там с line 32 или line 25, вот что вам нужно делать:
-1. Создайте отдельный env в конде
-2. туда накатите perl 5.22 с помощью conda install -c biobuilds  perl=5.22
-(biobuild добавьте в каналы с помощью conda config --add channels BioBuilds). туда же накатите прокку
-3. он может ругаться на minced. обновите его вручную(он dependency для прокки)
-и!
-перед первым запуском прокки сделайте ему  prokka --setupdb
-и вот после всего этого шаманства прокка отработает штатно
-NB. могут быть еще конфликты с биоперлом, но решается либо апдейтом, либо при установке 5.22 он переписывает конфликты
-prokka --outdir prooka_res scaffold.fasta
+WORKS ONLY WITH Perl 5.22
+1. conda create --name prokka
+  conda activate prokka
+2. conda config --add channels BioBuilds
+  conda install -c biobuilds  perl=5.22
+3.conda install -c bioconda minced 
+4. conda install -c bioconda prokka
+prokka --setupdb OBLIGATORY!!!!!
+prokka --outdir prokka_res scaffold.fasta
 6. Barrnap
  barrnap --outseq ecoli_rrna_match.fasta  scaffolds.fasta > rrna_step4.gff
 7. BLAST
@@ -48,12 +46,47 @@ sudo apt-get purge --auto-remove openjdk*
 sudo apt-get install openjdk-8-jdk
 8.3 chmod +x ./Mauve.jar
 java -jar ./Mauve.jar
-Major problems occur during Mauve work. Skipped this step for now.
-EDIT: No problems with Mauve. Prokka screwed up annotation files. Details about found genes in table.
+EDIT: Details about found genes in table.
 9. ResFinder
 Results uploaded on GitHub.
-
-
+EDIT: Mauve results for E.coli X:
+- Genus species strain
+- vapB 1 (193926-194192)
+- pasl (350640-350930)
+-rata (350920-351 396)
+-prli (451073-451 408)
+-yhav (451 408-451872)
+-taba_1 (538027-538491)
+- higB-2_1 (688247-688564)
+-tabA_2 (931670-932137)
+- din) (965777-966037)
+hicB (1323001-1323438)
+cbtA (1732584-1732958)
+doc (2298176-2298661)
+- higA-2_1 (2298712-2299029)
+- hipB (2398235-2398501)
+-higa 1 (2820799-2821215)
+cptB (3114437-3114703)
+-cptA (3114684-3115091)
+-maze (3250811-3251059)
+- higA_2 (3324586-3325005)
+apxIB (33861 25-3388227)
+stxB (3483605-3483874)
+-stxA (3483886-3484845)
+-yoeB (3880747-3881001)
+-yefM (3880998-3881249)
+pardi (3956315-3956566)
+parEl (3956568-3956864)
+pezT (4373822-4374748)
+-tabA_3 (4841382-4841834)
+chpS (4869476-4869727)
+- higA-2_2 (5081129-5081419)
+- higB-2_2 (5081420-5081731)
+-tcpE (5174508-5175593)
+-topT (5175606-5177159)
+ccdB (5218091-5218396)
+ccdA (5218398-5218616)
+-vapB_2 (5219211-521 9441)
 
 
 

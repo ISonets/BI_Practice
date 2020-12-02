@@ -34,4 +34,26 @@ Kameraden, совет тем, кто будет сам делать аннота
 и вот после всего этого шаманства прокка отработает штатно
 NB. могут быть еще конфликты с биоперлом, но решается либо апдейтом, либо при установке 5.22 он переписывает конфликты
 prokka --outdir prooka_res scaffold.fasta
+6. Barrnap
+ barrnap --outseq ecoli_rrna_match.fasta  scaffolds.fasta > rrna_step4.gff
+7. BLAST
+input: ecoil_rrna_match.fasta
+par-s: RefSeq_genomes
+DAT: 1900-2011/01
+result: e.coil 55989 genome
+8. Mauve
+8.1 Remove all Java versions
+sudo apt-get purge --auto-remove openjdk*
+8.2 Install JDK8
+sudo apt-get install openjdk-8-jdk
+8.3 chmod +x ./Mauve.jar
+java -jar ./Mauve.jar
+Major problems occur during Mauve work. Skipped this step for now.
+EDIT: No problems with Mauve. Prokka screwed up annotation files. Details about found genes in table.
+9. ResFinder
+Results uploaded on GitHub.
+
+
+
+
 

@@ -20,7 +20,8 @@ We assemble the genome of deadly E. coli X strain. We analyze strain and find en
  
  
 \section{Introduction}
-Hemolytic-uremic syndrome (HUS) is a clinical syndrome characterized by progressive renal failure that is associated with microangiopathic (nonimmune, Coombs-negative) hemolytic anemia and thrombocytopenia. This syndrome can be caused by  E. coli strain. Despite the fact that usually E.coly strains are not harmless to human organism, some of the strains can cause health problem.  E. coli strains have acquired virulence potential factors by attainment of particular loci through horizontally-transferred genetic, transposons or phages.
+Hemolytic-uremic syndrome (HUS) is a clinical syndrome characterized by progressive renal failure that is associated with microangiopathic (nonimmune, Coombs-negative) hemolytic anemia and thrombocytopenia. This syndrome can be caused by  E. coli strain. Despite the fact that usually E.coly strains are not harmless to human organism, some of the strains can cause health problem.  E. coli strains have acquired virulence potential factors by attainment of particular loci through horizontally-transferred genetic, transposons or phages. One approach  to study this is to assemble the genome de novo. 
+%This approach is suitable rather than aligning reads to a reference as it allows to detect enzymes.
  
 
 \section{Methods}
@@ -68,12 +69,12 @@ The analyzed data were obtained at Beijing Genome Institute from the isolate of 
 	\label{saw}
 \end{figure}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[scale=0.5 ]{images/consca.png} 
-	\centering \caption{Assessment of the quality of the paired processed data after using SPAdes}
-	\label{scacof}
-\end{figure}
+%\begin{figure}[h]
+%	\centering
+%	\includegraphics[scale=0.5 ]{images/consca.png} 
+%	\centering \caption{Assessment of the quality of the paired processed data after using SPAdes}
+%	\label{scacof}
+%\end{figure}
 The information related to the quality of the resulting assembly after SPAdes usage is available in lab journal.
 Using Jellyfish we detemnied k-mer paek bin. For paired-end data the k-mer peak was 125. Depth of coverage was calculated according to formulas described in Methods. To calculate T(total bases number), the number of reads(5499436) was multiplied to average read length(90). These numbers were obtained from FastQC reports(see GitHub repository, as also R script to k-mer counting).As a result, estimated genome size is ~ 5.3 Gb and depth coverage is ~ 188.
 After reads correction using SPAdes, k-mer profile hasn't changed. There is no significant improvement in k-mer distribution, except first bins. Genome size and depth coverage showed insignificant changes.

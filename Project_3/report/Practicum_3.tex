@@ -11,25 +11,28 @@
 \renewcommand{\normalsize}{\fontsize{14}{18pt}\selectfont}
 
 \title{ Analyzis of E.coli strains for outbreak investigation via identification pathogenic genes    }
-\author{ Kamilla Faizullina}
+\author{ Ignat Sonets, Kamilla Faizullina}
 \date{\empty}
 
 \begin{document}
 \maketitle
+We assemble the genome of deadly E. coli X strain. We find genes which lead to pathogenicity.
+ 
+ 
 \section{Introduction}
 \section{Methods}
-To analyze the E. coli X strains, I use the dataset from the TY2482 sample \cite{data}. To estimate genome size, I use Jellyfish \cite{jellyfish}. For estimation the genome size, the following formulas is used: 
+To analyze the E. coli X strains, We use the dataset from the TY2482 sample \cite{data}. To estimate genome size, I use Jellyfish \cite{jellyfish}. For estimation the genome size, the following formulas is used: 
 $$ N = \frac{M*L}{L-K+1}, Genome\_size = \frac{N}{T}, $$
 where N --- Depth of coverage, M --- k-mer peak, K --- k-mer-size, L --- average read length, T --- Total bases).
 
-For assembling the genome the SPAdes tool is used \cite {spades}.
+For assembling the genome the SPAdes tool is used \cite {spades}. SPAdes uses information about the distances between reads within read-pairs to combine contigs into ordered collections of adjacent contigs called scaffolds. 
 
  
 
 
 \section{Results}
-I use Fastqc for \cite{fc} for estimation number of reads and quality control. Table 1 represents the number of reads of the sequencing data.  
-I run Jellyfish tool only on the data labeled SRR292678. The length of mer is equal to 31. From the Figure 1, the peak position is $\approx 54$. $Genome\_size \approx 5 Gb$. %$ T = 549934690*90, N  \approx 98, Genome\_size \approx 5 Gb $.  
+We use Fastqc for \cite{fc} for estimation number of reads and quality control. Table 1 represents the number of reads of the sequencing data.  
+We run Jellyfish tool only on the data labeled SRR292678. The length of mer is equal to 31. From the Figure 1, the peak position is $\approx 54$. $Genome\_size \approx 5 Gb$. %$ T = 549934690*90, N  \approx 98, Genome\_size \approx 5 Gb $.  
 	\begin{table} 
 	\centering
 	\begin{tabular}{|c|c|c|}

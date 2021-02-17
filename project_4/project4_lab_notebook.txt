@@ -1,0 +1,5 @@
+# HW4 BEGIN
+Step 1. AUGISTUS de novo annotation
+  augusutus --species=pea_aphid tard_fasta.fa>tard_res.gff
+  # pea_aphid = Acyrthosiphon pisum. Why we use it? See Fig.1(phylogenetic tree of organisms which have availbale annotations)
+  

@@ -2,4 +2,39 @@
 Step 1. AUGISTUS de novo annotation
   augusutus --species=pea_aphid tard_fasta.fa>tard_res.gff
   # pea_aphid = Acyrthosiphon pisum. Why we use it? See Fig.1(phylogenetic tree of organisms which have availbale annotations)
+Step 2. Extracting AA sequences from annotated GFF
+  perl /home/ignat/Downloads/getAnnoFasta.pl  YOKOZUNA_aphid.gff 
+Step 3. How many AA sequences?
+   grep '>' YOKOZUNA_aphid.aa |wc -l
+   14446
+Step 4. Local BLAST search
+  4.1. Creating BLAST database of mass-spectrometry peptide results
+    makeblastdb -dbtype prot -in YOKOZUNA_aphid.aa -input_type fasta -title PROTEINS_MS_DB -parse_seqids -taxid 947166 -out prot_db.fa
+  4.2 BLAST of all AA against database
+    blastp -db prot_db.fa -query peptides.fa -out blatp_res_nocomm.txt -outfmt 6 -num_threads 4
+  4.3. Extracting sequences with hits from original AA file
+    cut -f 2 blatp_res_nocomm.txt >blast_res_names
+    more blast_res_names | xargs samtools faidx YOKOZUNA_aphid.aa> blast_query_seqs_res.aa
+    grep '>' blast_query_seqs_res.aa | wc -l
+      104
+    There are a lot of duplication of AA sequences.
+  4.4. Removing duplicated sequences (taken from https://www.biostars.org/p/143617/)
+    awk '/^>/{f=!d[$1];d[$1]=1}f' blast_query_seqs_res.aa > blast_query_seqs_uniq.aa
+    alternative: ort blast_query_seqs_res.aa | uniq -c > blast_uniq_v2.aa
+     grep '>' blast_query_seqs_uniq.aa | wc -l
+     31
+     grep '>' blast_uniq_v2.aa | wc -l
+     31
+  Step 5. Target localisation
+    5.1. WOLFPROT (web-interface used, see results in the folder)
+    5.2 TargetP 2.0 (web-interface used, see results in the folder)
+    5.3 BLASTp against SwissProt/UniProt DB(web-interface used, see results in the folder)
+    BLAST: 22 seqs gave hits,analyse them later
+  Step 6. Pfam-A & hmmscan
+  Step 7. making table with all results
   
+  
+     
+
+    
+

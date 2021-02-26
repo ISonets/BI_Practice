@@ -69,22 +69,22 @@
   First, our goal is to make functional annotation. So, we run AUGUSTUS to find homologous proteins in tardigrade genome data. We used training sets  Acyrthosiphon pisum species via augustus. We have chosen this species after  fylogenetic tree construction \ref{tree}.   We obtained $14446$ proteins. 
  
  Next, we used the list of peptides and command \emph{makeblastdb}. After removing duplicates, we got 31 proteins. After using Blast alignment, we keeped 22 proteins. The summury information is presented in Table \ref*{tab:rarevars}.
- \begin{longtable}{|c|c|c|c|c|c|c|}
+ \begin{longtable}[H!]{|c|c|c|c|c|c|c|} 
  	%{||c c c c c c c||}
  	%\centering
  	%\begin{tabular}{|c|c|c|c|c|c|c|}
   	\hline
  		id & cover &  	E-value	&  Identity & WolF & TargetP &	HMMER \\
  		 		\hline
- 		g5214t1 & 32  &	1e-12 & 39.29 & \specialcell{nucl: 1.5, \\ cytonucl: 1.5}  & Other & \specialcell{ Chitin binding \\Peritrophin-A \\ domain}  \\ 
+ 		g5214t1 & 32  &	1e-12 & 39.29 & \specialcell{*nucl: 4.5, \\ cytonucl: 5.5}  & Other & \specialcell{ Chitin binding \\Peritrophin-A \\ domain}  \\ 
 	\hline
   		g11539t1 & 50  &	3e-06 & 28.57 & \specialcell{ }  & \specialcell{Signal \\ peptide} & \specialcell{  }  \\ 
  \hline
-  		g5192t1 & 40  &		2e-14 & 40 & \specialcell{nucl: 1.5, \\ cytonucl: 1.5}  & \specialcell{Signal \\ peptide} & \specialcell{Chitin binding \\
+  		g5192t1 & 40  &		2e-14 & 40 & \specialcell{ }  & \specialcell{Signal \\ peptide} & \specialcell{Chitin binding \\
   			Peritrophin-A
   			\\ domain}  \\ 
  \hline
-  		g5086t1 & 12  &	2e-6 & 44& \specialcell{nucl: 1.5, \\ cytonucl: 1.5}  &   \specialcell{Signal \\ peptide}  & \specialcell{ Chitin binding \\Peritrophin-A \\ domain}  \\ 
+  		g5086t1 & 12  &	2e-6 & 44& \specialcell{ }  &   \specialcell{Signal \\ peptide}  & \specialcell{ Chitin binding \\Peritrophin-A \\ domain}  \\ 
  \hline
   		g5087t1 & 20  &	6e-13 & 40 & \specialcell{nucl: 9}  & Other & \specialcell{ Chitin binding \\Peritrophin-A \\ domain}  \\ 
  \hline
@@ -95,7 +95,7 @@
   			domain}  \\ 
  \hline
  
-   		g2692t1 & 12  &	1e-3 & 26  & \specialcell{cytonucl: 4, \\  nucl: 3.5}  & Other & \specialcell{ Hermes \\ 
+   		g2692t1 & 12  &	1e-3 & 26  & \specialcell{*cytonucl: 4, \\  nucl: 3.5}  & Other & \specialcell{ Hermes \\ 
    			transposase \\ 
    			DNA-binding \\ 
    			domain}  \\ 
@@ -166,7 +166,7 @@
   
       		g3380t1 & 51  &	4e-8 & 24  & \specialcell{
       		
-      	cytonucl: 1.83333, \\ nucl: 1.5 
+      	*cytonucl: 1.83333, \\ nucl: 1.5 
        }  &  \specialcell{Signal \\ peptide}   & \specialcell{ Astacin \\ 
        (Peptidase \\ 
        family M12A)}  \\ 
@@ -180,15 +180,14 @@
   
   
     
-  g2090t1 & 73  &	2e-126 & 36  & \specialcell{ nucl: 2\\  }  & Other & \specialcell{ Glycosyl \\
+  g2090t1 & 73  &	2e-126 & 36  & \specialcell{*nucl: 2\\  }  & Other & \specialcell{ Glycosyl \\
   	hydrolases \\
   	family 31}  \\ 
   \hline
  
  		
  		\hline
- 	%\end{tabular}
- 	\caption{   }
+\caption[LOF entry]{Summary information. The star in cell WolF (localization) means that nucl and cytonucl are not maximum. The empty cell means that information is not presented.}
  	\label{tab:rarevars}
  \end{longtable}
  

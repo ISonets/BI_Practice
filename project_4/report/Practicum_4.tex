@@ -11,16 +11,17 @@
 \renewcommand{\normalsize}{\fontsize{14}{18pt}\selectfont}
 \newcommand{\specialcell}[2][c]{%
 	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-\title{ Gene prediction for mystery Tardigrades genomes }
+\title{ Tardigrades: 8-legged spacemarines }
 \author{ Ignat Sonets, Kamilla Faizullina}
 \date{\empty}
 
 \begin{document}
 	\catcode`\_=\active
+		\catcode`\^=\active
 \maketitle
  
  
- In this report we try to find new proteins somehow related to DNA repair mechanisms of tardigrades. As a model Ramazzottius varieornatus, the YOKOZUNA-1 strain was selected, and genome annotation data and mass spectrometry results were obtained. After analysis made, we found at least 2 candidate proteins which have  nuclear localization, DNA-binding activity,as also they participate in recombination and mechanisms. Our results can partially explain the survivability of tardigrades in various harsh conditions.
+ \textbf{Abstract.} In this report we try to find new proteins somehow related to DNA repair mechanisms of tardigrades. As a model Ramazzottius varieornatus, the YOKOZUNA-1 strain was selected, and genome annotation data and mass spectrometry results were obtained. After analysis made, we found at least 2 candidate proteins which have  nuclear localization, DNA-binding activity,as also they participate in recombination and mechanisms. Our results can partially explain the survivability of tardigrades in various harsh conditions.
  
  
 \section{Introduction}
@@ -31,12 +32,12 @@
  
  1. They are almost indestructible. They could have been found everywhere, literally everywhere: in Earth's biosphere, from mountaintops to the deep sea and mud volcanoes, and from tropical rainforests to the Antarctic \cite{1}. Tardigrades are among the most resilient animals ever known to man. They have anomalous endurance in terms of survivability of extreme conditions, and even deep dead space filled with vacuum and radiation emitted from myriads of stars could nothing to do. They are truly space marines coming from the Earth. They exist ca. 500 million years and I guess will exist for nest 500 million years. They are living grey goo in size of approx. 0.5 mm, thousands of little Thanoses. But what makes them so adapted to everything? First, they developed  anhydrobiosis, cryobiosis, osmobiosis, or anoxybiosis, and so on. Depending on the environment, they simply go to sleep forming capsule around ther bodies,thus preserving resources and waiting for shiny weather. Second (and it would be our task) they seem to have some mechanisms providing DNA repair to escape the death and different pathologies. They m u s t definitely have a galore of these methods. Let's find them! But before we start, the second trait:
  
- 2. They are extremely cute. %$^_^$
+ 2. They are extremely cute. :)
  
  So, what about the data we have? We will be using the sequence of the Ramazzottius varieornatus, the YOKOZUNA-1 strain, its annotation provided by our team, and mass spectrometry data of chromatin of this water bear. The core idea in this project is that tardigrades might have unique proteins associated with their DNA to protect and/or effectively repair it. To put in simple, we will merge proteome data and genome data, and try to find any intersections, determine physical localization of found proteins, and try to explain and discuss our findings.
  
  Also we need to briefly mention different tools we used. 
- AUGUSTUS tool is a gene prediction tool running a generalized hidden Markov model (GHMM), which defines probability distributions for the various sections of genomic sequences. Introns, exons, intergenic regions, etc. correspond to states in the model and each state is thought to create DNA sequences with certain pre-defined emission probabilities. Similar to other HMM-based gene finders, AUGUSTUS finds an optimal parse of a given genomic sequence, i.e. a segmentation of the sequences into states that is most likely according to the underlying statistical model. 
+ AUGUSTUS tool is a gene prediction tool running a generalized hidden Markov model (GHMM), which defines probability distributions for the various sections of genomic sequences \cite{augustus}. Introns, exons, intergenic regions, etc. correspond to states in the model and each state is thought to create DNA sequences with certain pre-defined emission probabilities. Similar to other HMM-based gene finders, AUGUSTUS finds an optimal parse of a given genomic sequence, i.e. a segmentation of the sequences into states that is most likely according to the underlying statistical model. 
  
  BLAST is a gold standard alignment tool that searches for homology (i.e. similarity between sequences.For more info, please view \cite{4}.) between query sequence and desired database containing pre-analysed data. BLAST identifies homologous sequences using a heuristic method which initially finds short matches between two sequences; thus, the method does not take the entire sequence space into account. After initial match, BLAST attempts to start local alignments from these initial matches. This also means that BLAST does not guarantee the optimal alignment, thus some sequence hits may be missed. In order to find optimal alignments, the Smith-Waterman algorithm should be used \cite{2, 3}.
   
@@ -44,7 +45,7 @@
  
  
  \section{Data}
- We use the assembled genome data of the Ramazzottius varieornatus, the YOKOZUNA-1 strain \cite{data}. 
+ We use the assembled genome data of the Ramazzottius varieornatus, the YOKOZUNA-1 strain \cite{data}. We also use a list of peptides obtained  via tandem mass spectrometry \cite{peptides}. 
  
  
  
@@ -55,7 +56,7 @@
  
  In order to detect regions, linked to DNA repair, we should use both genomic and proteomic data. We can use a list of peptides that were associated with the DNA regions. This list can be obtained via analyzis of extracted chromatin fraction using tandem mass spectrometry. To find associated proteins from the R. varieornatus genome  to peptides, we use $\textrm{makeblastdb}$ utilite \cite{blast}.
  
- Net, to narrow the list of proteins, we use WoLF PSORT \cite{WOlf}. This program allows to predict where these proteins are found in the cell based on their sequences. predicts the subcellular localization of proteins. The method is based on detection the presence of a signal peptide on their N-terminus. We also use TargetP 1.1 Server \cite{ptarget}, which also predicts the subcellular localization.
+ Next, to narrow the list of proteins, we use WoLF PSORT \cite{WOlf}. This program allows to predict where these proteins are found in the cell based on their sequences. predicts the subcellular localization of proteins. The method is based on detection the presence of a signal peptide on their N-terminus. We also use TargetP 1.1 Server \cite{ptarget}, which also predicts the subcellular localization.
  
  To find homologous proteins we use Blast \cite{2}. We use HMMER to predict the function of the proteins \cite{HMM}. The HMMER is based on Hidden Markov Models.  
  
@@ -64,10 +65,10 @@
  \begin{figure}[h]
  	\centering
  	\includegraphics[scale=0.63]{tree}  
- 	\caption{ Fylogenetic tree.}
+ 	\caption{ Phylogenetic tree of avilable pre-trained sets of annotated organisms and R.varieornatus.}
  	\label{tree}
  \end{figure}
-  First, our goal is to make functional annotation. So, we run AUGUSTUS to find homologous proteins in tardigrade genome data. We used training sets  Acyrthosiphon pisum species via augustus. We have chosen this species after  fylogenetic tree construction \ref{tree}.   We obtained $14446$ proteins. 
+  First, our goal is to make functional annotation. So, we run AUGUSTUS to find homologous proteins in tardigrade genome data. We used training sets  Acyrthosiphon pisum species via ugustus. We have chosen this species after  fylogenetic tree construction \ref{tree}.   We obtained $14446$ proteins. 
  
  Next, we used the list of peptides and command \emph{makeblastdb}. After removing duplicates, we got 31 proteins. After using Blast alignment, we keeped 22 proteins. The summury information is presented in Table \ref*{tab:rarevars}.
  \begin{longtable}[H!]{|c|c|c|c|c|c|c|} 
@@ -188,7 +189,7 @@
  
  		
  		\hline
-\caption[LOF entry]{Summary information. The star in cell WolF (localization) means that nucl and cytonucl are not maximum. The empty cell means that information is not presented.}
+\caption[LOF entry]{The summary information. The star in cell WolF (localization) means that nucl and cytonucl scores are not maximum. The empty cell means that information is not presented.}
  	\label{tab:rarevars}
  \end{longtable}
  
@@ -211,8 +212,11 @@
  According to these criteria, at least 2 proteins passed this filtration. First we present the top hits for each protein. There are g7315_t1, which is SNF2 family N-terminal domain(Pfam PF00176.23) and HepA-related protein (HARP)(Pfam PF07443.13), and g11028\_t1(Zinc finger, C3HC4 type (RING finger)(Pfam PF00097.25)). 1 more protein, g4563_t1, could be potentially interpreted as Zinc knuckle(Pfam PF00098.23), although it's not the best hit for this protein. Fig.2,3,4 provides more detailed data about best hits. BLAST against SwissProt/UniProt database partially confirms our results. For g7315_t1, best BLAST hit is HepA-related protein(Uniprot B4F769) for g11028_t1, best BLAST hit is RING-type E3 ubiquitin transferase rad18(Uniprot Q4WZJ6).
  
  According to the article provided with Task, we found neither MRE11 protein, nor Dsup protein, which is confusing. Perhaps if we use pre-computed AUGUSTUS annotation, we will find them. Although we didn't find specific proteins related to tardigrades 'genetic endurance', we still found proteins related to DNA repair and chromosome maintenance. Thinking that only 2 genes wiil do all the magic is naive and suitable only for newcomers in biology, so I think we reached a partial, but success. To better explain this, I would like to provide some description for each protein we found. For other details please use provided Pfam codes. Thanks to tight integration with Uniprot database, you can easily access additional info! WARNING! Some parts of the text below are taken without changes from its Pfam/UniProt articles. It's not a plagiarism--I just can't write it better than it is. 
+ 
  To be honest, not all of our findings are proteins. Some of them are just their domains, like our first hero--SNF2 family N-terminal domain. As far as I know, one protein domain performs 1 specific function. SNP NTD domain is a part of proteins which involved in many functions transcription regulation, DNA repair (The most important for us!This domain is a part pf e.g. ERCC6, protein that conduct excision repair. This protein has ATPase activity thanks to this domain. Damaging this domain could ruin functioning of ERCC6 as the whole. More info about ERCC6 here \cite{5}), DNA recombination and chromatin unwinding.
- Our second candidate for g7315 is a protein--HepA-related protein, also known as SMARCAL1 (SWI/SNF-related, matrix-associated, actin-dependent regulator of chromatin, subfamily A-like1), also known as DNA-dependent ATPase A. Its function is maintaining genome integrity during DNA replication, working as helicase and stabilisng replication forks in right orientation. The last candidate for g7315_t1...it's not much to say. Presumably it's Type III restriction enzyme, res subunit, and that's all. Without exact knowing of which is this restrictase we can only assume its(g7351) participation in DNA-related activity, such as participation in recombination. And we are wery glad that BLAST confirms this protein too!
+ Our second candidate for g7315 is a protein--HepA-related protein, also known as SMARCAL1 (SWI/SNF-related, matrix-associated, actin-dependent regulator of chromatin, subfamily A-like1), also known as DNA-dependent ATPase A. Its function is maintaining genome integrity during DNA replication, working as helicase and stabilisng replication forks in right orientation.  And we are very glad that BLAST confirms this protein too!
+ 
+ The last candidate for g7315_t1...it's not much to say. Presumably it's Type III restriction enzyme, res subunit, and that's all. Without exact knowing of which is this restrictase we can only assume its(g7351) participation in DNA-related activity, such as participation in recombination. 
  
  For g11028 we did find only domain, so we can only speculate about which specific protein this domain belongs. A RING (Really Interesting New Gene) finger domain is a protein domain of zinc finger type which contains a C3HC4 amino acid motif which binds two zinc cations (seven cysteines and one histidine arranged non-consecutively).This protein domain contains from 40 to 60 amino acids. Many proteins containing a RING finger play a key role in the ubiquitination pathway \cite{6}. Whatever the exact protein is, we know its fuctions--ubiquitination and/or DNA-binding activity.
  
@@ -228,25 +232,27 @@
  
  5) Specialized enzymes known as de-ubiquitinases (DUB) can shorten the chains or even remove all ubiquitins from the target protein.
  
- To put in simple, possible mechanism of participation of this protein with RING on board is: something damaged DNA-binding protein=>to negate unwinding or wrong folding of chromatin this protein Ub-degraded=>???=>PROFIT. Maybe this finding is not so groundbreaking as a Dsup discovery, but these unnamed soldiers do their routine job, and without them even a superhero would be defeated.
+ To put in simple, possible mechanism of participation of this protein with RING on board is: something damaged DNA-binding protein$\implies$ to negate unwinding or wrong folding of chromatin this protein Ub-degraded$\implies$???$\implies$PROFIT. Maybe this finding is not so groundbreaking as a Dsup discovery, but these unnamed soldiers do their routine job, and without them even a superhero would be defeated.
  
  Last candidate--g4563_t1. One more Zinc finger (we discussed its role in the last paragraph), one more unnamed soldier. Either in Ub degradation, or just keeping DNA tight and compacted via its binding, it also does their job.
  
  Finally I want to discuss 2 possible sources of flaws made in this project. First, is DIY annotation of R.varieornatus made by picking nearest 'neighbor'. But going further in this project I realized that maybe we should have been tried to use annotation made by professionals or changed training set to C.elegans or tried to do de novo annotation. But lack of time and resources hindered these ideas. Second is not to use default parameters when doing a BLAST search. In everyday use default parameters is the go-to variant, but if we lessen the threshold, maybe we could find more proteins and domains.
  
- To sum up: we found some proteins and domains which are participants in DNA maintaining activity. None of them are specific, none of them are major discovery, but like without Imperial Gurad the Astartes would be drowned in horrors of the galaxy (WH40k reference), so without these proteins our 8-legged space marine would be melten/frozen/irradiated/%insert_everything% to death. Oh, and working with DNA data data and protein data simulteneously was a very interesting experience!
+ To sum up: we found some proteins and domains which are participants in DNA maintaining activity. None of them are specific, none of them are major discovery, but like without Imperial Guard the Astartes would be drowned in horrors of the galaxy (WH40k reference), so without these proteins our 8-legged space marine would be melten/frozen/irradiated/insert_everything to death. Oh, and working with DNA data data and protein data simulteneously was a very interesting experience!
  Thank you for your attention!
  
  
  \newpage 
- \section{Supplement}
+ \section{Supplementary}
   \begin{figure}[h]
  	\centering
- 	\includegraphics[scale=0.53]{1}  
- 	\includegraphics[scale=0.53]{2}
- 	\includegraphics[scale=0.53]{3}
- 	\caption{ HMMR }
- 	\label{tree}
+ 	\includegraphics[scale=0.51]{1} 
+ 	\caption{ HMMER search results for g11028. } 
+ 	\includegraphics[scale=0.51]{2}
+ 	\caption{  HMMER search results for g7315. }
+ 	\includegraphics[scale=0.51]{3}
+ 	\caption{  HMMER search results for g4653. }
+ 	\label{screens}
  \end{figure}
  
  
@@ -272,6 +278,9 @@
 	
  \bibitem{data}
  https://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=947166
+
+\bibitem{peptides}
+http://public.dobzhanskycenter.ru/mrayko/BIMM185/peptides.fa
 
 \bibitem{augustus}
 http://bioinf.uni-greifswald.de/augustus/

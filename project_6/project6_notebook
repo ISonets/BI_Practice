@@ -1,0 +1,37 @@
+# 0. Downlodaing the data
+wget
+gunzip *.gz
+# 1. Build HISAT2 database
+  hisat2-build GCF_000146045.2_R64_genomic.fna GCF_000146045.2_R64_genomic.gff
+# 2. HISAT2 single-end launch
+  hisat2 -p 8 -x GCF_000146045.2_R64_genomic.gff -U SRR941816.fastq -S out1.sam
+  hisat2 -p 8 -x GCF_000146045.2_R64_genomic.gff -U SRR941817.fastq -S out2.sam
+  hisat2 -p 8 -x GCF_000146045.2_R64_genomic.gff -U SRR941818.fastq -S out3.sam
+  hisat2 -p 8 -x GCF_000146045.2_R64_genomic.gff -U SRR941819.fastq -S out4.sam
+# 3. SAMtools manipulations
+  # sam2bam
+  samtools view -bS out1.sam >out1.bam
+  samtools view -bS out2.sam >out2.bam
+  samtools view -bS out3.sam >out3.bam
+  samtools view -bS out4.sam >out4.bam
+  # sorting
+  samtools sort out1.bam >out1_sorted.bam
+  samtools sort out2.bam >out2_sorted.bam
+  samtools sort out3.bam >out3_sorted.bam
+  samtools sort out4.bam >out4_sorted.bam
+# 4. GFF manipulations
+  conda install gffread
+  gffread GCF_000146045.2_R64_genomic.gff -T -o GCF_000146045.2_R64_genomic.gtf
+# 5. featureCounts
+  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat1 ../../project6/out1_sorted.bam 
+  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat2 ../../project6/out2_sorted.bam 
+  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat3 ../../project6/out3_sorted.bam 
+  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat4 ../../project6/out4_sorted.bam 
+# 6. Simplifying the output
+  cat feat1.txt | cut -f 1,7-10 > feat1_simplified.txt
+  cat feat2.txt | cut -f 1,7-10 > feat2_simplified.txt
+  cat feat3.txt | cut -f 1,7-10 > feat3_simplified.txt
+  cat feat4.txt | cut -f 1,7-10 > feat4_simplified.txt
+# 7. DESEQ2
+  
+

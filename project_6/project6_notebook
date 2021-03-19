@@ -23,15 +23,15 @@ gunzip *.gz
   conda install gffread
   gffread GCF_000146045.2_R64_genomic.gff -T -o GCF_000146045.2_R64_genomic.gtf
 # 5. featureCounts
-  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat1 ../../project6/out1_sorted.bam 
-  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat2 ../../project6/out2_sorted.bam 
-  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat3 ../../project6/out3_sorted.bam 
-  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat4 ../../project6/out4_sorted.bam 
+  ./featureCounts -g gene_id -a ../../project6/GCF_000146045.2_R64_genomic.gtf -o feat_all ../../project6/*_sorted.bam
 # 6. Simplifying the output
-  cat feat1.txt | cut -f 1,7-10 > feat1_simplified.txt
-  cat feat2.txt | cut -f 1,7-10 > feat2_simplified.txt
-  cat feat3.txt | cut -f 1,7-10 > feat3_simplified.txt
-  cat feat4.txt | cut -f 1,7-10 > feat4_simplified.txt
+  cat feat_all.txt | cut -f 1,7-10 > feat_all_simplified.txt
 # 7. DESEQ2
+  cat feat_all_simplified.txt | R -f deseq2.r
+  cat feat_all_simplified.txt | R -f draw-heatmap.r
+# 8. GO Slim mapper
+  head result.txt  -n 50 |cut -f 1 >top50_genes.txt
+  sed 's/gene-//g' top50_genes.txt > top50.txt
+
   
 

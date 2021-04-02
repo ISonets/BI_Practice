@@ -25,7 +25,7 @@
 	\catcode`\^=\active
 	
 \maketitle
- We analyze RNA-seq data from yeast  to study gene expression  between during fermentation. We make alignment and analyze expressions level. We propose the gene which could be important for fermentation process. 
+ We analyze RNA-seq data from yeast  to study gene expression   during fermentation. We make alignment and analyze expressions level using utilities. Using The Saccharomyces Genome Database, we propose the gene which could be important for fermentation process. 
  
 \section{Introduction}
  
@@ -70,9 +70,11 @@ We also use Saccharomyces cerevisiae assembly R64  strain S288C from NCBI \cite{
  
  First, we should make alignment. We use HISAT2 which allows us make  alignment  for RNA sequencing reads \cite{hisat}. HISAT2 alignment is based on extended the Burrows-Wheeler transform  with indexing sequences. 
  
- The utility DESeq2 is used to perform differential gene expression analysis \cite{deseq}. This method is based on using negative binomial distribution in the model. We use command $\textrm{featureCounts}$ from the Subread package \cite{featurecounts} for counting reads and command $\textrm{gffread}$ \cite{gff} to prepare results for DESeq2. 
+ The utility DESeq2 is used to perform differential gene expression analysis \cite{deseq}. This method is based on the assumption  negative binomial distribution in the model. We use command $\textrm{featureCounts}$ from the Subread package \cite{featurecounts} for counting reads and command $\textrm{gffread}$ \cite{gff} to prepare results for DESeq2. 
  
- After using DESeq2, we have output results. To make interpretation of results, we use Saccharomyces Genome Database  by Stanford \cite{ontology}. 
+ After using DESeq2, we have output results. To visualize RNA-Seq results, we can use heatmap plots and volcano plots \cite{volcano}.   
+ 
+   To make interpretation of results, we use Saccharomyces Genome Database  by Stanford \cite{ontology}. The Saccharomyces Genome Database provides information about genes functions  from the yeast genome. 
  
  
  \section{Results}
@@ -80,7 +82,7 @@ We also use Saccharomyces cerevisiae assembly R64  strain S288C from NCBI \cite{
  	We successfully aligned  our data to S288C reference genome using HISAT. Results are in Table 1.
  
  
- 	\begin{table} 
+ 	\begin{table}[h!]
  	\centering
  	\begin{tabular}{|c|c|c|c|c|}
  		\hline
@@ -117,10 +119,15 @@ We also use Saccharomyces cerevisiae assembly R64  strain S288C from NCBI \cite{
 	\label{tree}
 \end{figure}
  
- In total(according p-adj. value) 3450 gene changed its expression before starting the fermentation and after 30 min of fermentation. But describing each of the changes would take an eternity, so we narrowed down the focus to top 50 genes. We found 39 GO terms describing these pathways (see Suppl.Table 1 for more details.), and all of them are upregulated. According to the volcano plot, 48 out of 50 genes are upregulated (see Fig.\ref{tree}), except for 2 genes. 
+ In total(according p-adj. value) 3450 gene changed its expression before starting the fermentation and after 30 min of fermentation. But describing each of the changes would take an eternity, so we narrowed down the focus to top 50 genes. We found 39 GO terms describing these pathways (see Suppl.Table 1 for more details.), and all of them are upregulated. According to the volcano plot, 48 out of 50 genes are upregulated (see Fig.\ref{tree}), except for 2 genes.
+  
  The main reason for such a result is a need for fast adaptation for new conditions, main limitaion of them(these new conditions) is lack of O2, and to survive, yeast cell should assemble ribosomes, create a lot of new RNAs of all types, assemble new enzymes, transport new sugars and start converting them to ATP as fast as possible. And we can clearly see, that is happening exactly as we predicted. Let's investigate GO terms and genes more thoroughly.
+ 
  We start with downregulrated genes, because there are only 2 of them. First, YKR097W (PCK1)\cite{11} . This gene belongs to carbohydrate metabolic process term ( GO:0005975 ). This gene encodes phosphoenolpyruvate carboxykinase; it is the key enzyme in gluconeogenesis, catalyzes early reaction in carbohydrate biosynthesis, located in the cytosol. By switching metabolism to sugars degradation in lack of O2, gluconoegenesis is not needed, so no surprise it is downregulated. One can assume that gene is essential for gluconeogenesis which is crucial when growing on sugars-free media, but flour is rich for carbohydrates, so no senese in this gene and its product during bread making. 
+ 
+ 
  The second gene--YLR327C(TMA10)\cite{21}  -- is not allocated for any of GO terms. It encodes protein of unknown function that associates with ribosomes; it is known that protein abundance increases in response to DNA replication stress. Here things got more speculative. At first glance, ribosomes number should rise (as bread:) ), and so this protein should also produce more active, but we don't see this. So I can't give the exact answer that could reveal role of this protein. The only thing I can assume that this protein forms dimeric complexes with ATP-synthase (Dienhart M, et al. (2002)\cite{31} ). As we all know, fermentation is much less energy-efficient than aerobic metabolism,so cell doesn't nedd so much ATP-synthases units,and numbers of TMA10 and TMA10 RNA decreases.
+ 
  Other genes are upregulating, and because we can't discuss all of 48 genes and their roles in pathways, we will choose only 1 gene and try to hypothesize how it might be a part of actual changes in yeast metabolism. For example, SYO1 / YDL063C \cite{41}, part of the ribosomal large subunit biogenesis (GO:0042273). It is SYnchronized impOrt or SYmpOrtin ; it is assembly chaperone that co-translationally associates with nascent Rpl5p, preventing aggregation; facilitates synchronized nuclear coimport of two 5S-rRNA binding proteins, Rpl5p and Rpl11p, mediated by import receptor Kap104p; required for biogenesis of the large ribosomal subunit. By helping with an assembly of LSU (5S rRNA is a structural component of LSU), thus accelerating ribosome assembly as a functional complex, it provides the synthesis of necessary enzymes and maintaining fermentation speed and keeping the cell alive.
  Thank you for your attention!
  
@@ -167,6 +174,9 @@ Liao Y, Smyth GK and Shi W (2014).  featureCounts:  an efficient general pur-pos
 \bibitem{gff}
 How to cite this article
 Pertea G and Pertea M. GFF Utilities: GffRead and GffCompare [version 1; peer review: 3 approved]. F1000Research 2020, 9:304 (https://doi.org/10.12688/f1000research.23297.1) 
+
+\bibitem{volcano}
+Maria Doyle, 2021 Visualization of RNA-Seq results with Volcano Plot (Galaxy Training Materials). /training-material/topics/transcriptomics/tutorials/rna-seq-viz-with-volcanoplot/tutorial.html Online; accessed Fri Apr 02 2021
 
 \bibitem{ontology}
 Cherry JM, Hong EL, Amundsen C, Balakrishnan R, Binkley G, Chan ET, Christie KR, Costanzo MC, Dwight SS, Engel SR, Fisk DG, Hirschman JE, Hitz BC, Karra K, Krieger CJ, Miyasato SR, Nash RS, Park J, Skrzypek MS, Simison M, Weng S, Wong ED (2012) Saccharomyces Genome Database: the genomics resource of budding yeast. Nucleic Acids Res. Jan;40(Database issue):D700-5. [PMID: 22110037]

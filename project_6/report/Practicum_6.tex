@@ -26,7 +26,7 @@
 	
 \maketitle
  
-\textbf{Abstract.}  We analyze RNA-seq data from yeast  to study gene expression   during fermentation. We make alignment and analyze expressions level using utilities. Using The Saccharomyces Genome Database, we propose the gene which could be important for fermentation process. 
+\textbf{Abstract.}  We analyze RNA-seq data from yeast  to study gene expression   during fermentation. We make alignment and analyze expressions level using utilities. Using The Saccharomyces Genome Database, we propose the gene which could be important for fermentation process. We suppose that gene SYO1/YDL063C is might be essential part of yeast metabolism.
  
 \section{Introduction}
  
@@ -99,7 +99,7 @@ We also use Saccharomyces cerevisiae assembly R64  strain S288C from NCBI \cite{
  	\label{tab:2}
  \end{table}
  
- Later we filtered and sorted our results using SAMtools. After coverting GFF annotation file to GTF, we used FeatureCounts to count reads for various genes and features. DESEQ2 package outputs gave us normalized counts for each feature, and heatmap(Fig. 1) shows us 1)clustering of two states (0 min/30 min) and 2)difference of gene expression between 2 states (the more red point is, the bigger the value and so the bigger is expression).To put in simplified way, when observing the heatmap we can see that across all genes, proprotion of expressed genes of 0 min/30 min are approx. 50/50, and genes which are expressed in 0 min state are not expressed in 30 min state. 
+ Later we filtered and sorted our results using SAMtools. After coverting GFF annotation file to GTF, we used FeatureCounts to count reads for various genes and features. DESEQ2 package outputs gave us normalized counts for each feature, and heatmap(Fig. 1) shows us 1)clustering of two states (0 min/30 min) and 2)difference of gene expression between 2 states (the more red point is, the bigger the value and so the bigger is expression).To put in simplified way, when observing the heatmap we can see that across all genes, proportion of expressed genes of 0 min/30 min are approx. 50/50, and genes which are expressed in 0 min state are not expressed in 30 min state. 
  
  
   \begin{figure}[h]
@@ -130,6 +130,8 @@ We also use Saccharomyces cerevisiae assembly R64  strain S288C from NCBI \cite{
  The second gene--YLR327C(TMA10)\cite{21}  -- is not allocated for any of GO terms. It encodes protein of unknown function that associates with ribosomes; it is known that protein abundance increases in response to DNA replication stress. Here things got more speculative. At first glance, ribosomes number should rise (as bread:) ), and so this protein should also produce more active, but we don't see this. So I can't give the exact answer that could reveal role of this protein. The only thing I can assume that this protein forms dimeric complexes with ATP-synthase (Dienhart M, et al. (2002)\cite{31} ). As we all know, fermentation is much less energy-efficient than aerobic metabolism,so cell doesn't nedd so much ATP-synthases units,and numbers of TMA10 and TMA10 RNA decreases.
  
  Other genes are upregulating, and because we can't discuss all of 48 genes and their roles in pathways, we will choose only 1 gene and try to hypothesize how it might be a part of actual changes in yeast metabolism. For example, SYO1 / YDL063C \cite{41}, part of the ribosomal large subunit biogenesis (GO:0042273). It is SYnchronized impOrt or SYmpOrtin ; it is assembly chaperone that co-translationally associates with nascent Rpl5p, preventing aggregation; facilitates synchronized nuclear coimport of two 5S-rRNA binding proteins, Rpl5p and Rpl11p, mediated by import receptor Kap104p; required for biogenesis of the large ribosomal subunit. By helping with an assembly of LSU (5S rRNA is a structural component of LSU), thus accelerating ribosome assembly as a functional complex, it provides the synthesis of necessary enzymes and maintaining fermentation speed and keeping the cell alive.
+ 
+ 
  Thank you for your attention!
  
  

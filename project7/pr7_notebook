@@ -1,0 +1,30 @@
+BEGIN
+Part 1. QIIME2
+0. Editing manifest.tsv(to show absolute paths to files)
+1. qiime tools import --type 'SampleData[SequencesWithQuality]' --input-path manifest.tsv --output-path seqs.qza --input-format SingleEndFastqManifestPhred33V2
+  Imported manifest.tsv as SingleEndFastqManifestPhred33V2 to seqs.qza
+2. qiime tools validate seqs.qza 
+  Result seqs.qza appears to be valid at level=max.
+3. qiime demux summarize --i-data seqs.qza --o-visualization seqs.qzv
+  Saved Visualization to: seqs.qzv
+4.  qiime dada2 denoise-single --i-demultiplexed-seqs seqs.qza --p-trim-left 30 --p-trunc-len 150 --o-representative-sequences repr-seqs.qza --o-table table.qza --o-denoising-stats stats.qza
+  Saved FeatureTable[Frequency] to: table.qza
+  Saved FeatureData[Sequence] to: repr-seqs.qza
+  Saved SampleData[DADA2Stats] to: stats.qza
+  ! Insert FastQC and QIIME2-view plots
+5. qiime metadata tabulate --m-input-file stats.qza --o-visualization stats.qzv
+  Saved Visualization to: stats.qzv
+6. qiime feature-table summarize --i-table table.qza --o-visualization table.qzv --m-sample-metadata-file sample-metadata.tsv
+  Saved Visualization to: table.qzv
+7. qiime feature-table tabulate-seqs --i-data repr-seqs.qza --o-visualization repr-seqs.qzv
+  Saved Visualization to: repr-seqs.qzv
+8. qiime feature-classifier classify-sklearn --i-classifier gg-13-8-99-nb-classifier.qza --i-reads repr-seqs.qza --o-classification taxonomy.qza
+  Saved FeatureData[Taxonomy] to: taxonomy.qza
+9. qiime metadata tabulate --m-input-file taxonomy.qza --o-visualization taxonomy.qzv
+  Saved Visualization to: taxonomy.qzv
+10.qiime taxa barplot --i-table table.qza --i-taxonomy taxonomy.qza --m-metadata-file sample-metadata.tsv --o-visualization taxa-bar-plots.qzv
+  Saved Visualization to: taxa-bar-plots.qzv
+Part 2. Shotgun sequencing analysis
+1. 
+
+

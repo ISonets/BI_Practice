@@ -1,4 +1,4 @@
-BEGIN
+BEGIN lab notebook for Project 7
 Part 1. QIIME2
 0. Editing manifest.tsv(to show absolute paths to files)
 1. qiime tools import --type 'SampleData[SequencesWithQuality]' --input-path manifest.tsv --output-path seqs.qza --input-format SingleEndFastqManifestPhred33V2
@@ -25,6 +25,17 @@ Part 1. QIIME2
 10.qiime taxa barplot --i-table table.qza --i-taxonomy taxonomy.qza --m-metadata-file sample-metadata.tsv --o-visualization taxa-bar-plots.qzv
   Saved Visualization to: taxa-bar-plots.qzv
 Part 2. Shotgun sequencing analysis
-1. 
+1. metaphlan G12_assembly.fna --input_type fasta --nproc 8 > G12_profile.txt
+2. for f in *.fasta; do metaphlan $f --input_type fasta --nproc 8 > ${f%.fasta}_profile.txt;done
+3. python anaconda3/envs/metaphlan/bin/merge_metaphlan_tables.py *_profile.txt > all_profiles_merged.txt
+4. grep -E "s__|clade" all_profiles_merged.txt | sed 's/^.*s__//g' | cut -f1,3-9 | sed -e 's/clade_name/body_site/g' > merged_abundance_table_species.txt
+5. hclust2.py -i merged_abundance_table_species.txt -o abundance_heatmap_species.png --f_dist_f braycurtis --s_dist_f braycurtis --cell_aspect_ratio 0.5 -l --flabel_size 10 --slabel_size 10 --max_flabel_len 100 --max_slabel_len 100 --minv 0.1 --dpi 600 --ftop 50
+6. bwa index Tannerella_forsythia_92A2.fasta 
+7. bwa mem Tannerella_forsythia_92A2.fasta G12_assembly.fna > G12_out.sam
+8. samtools view -bS G12_out.sam >G12_out.bam
+9. samtools sort G12_out.bam - o G12_out_sorted.bam
+10. samtools index G12_out_sorted.bam
+11. bedtools bamtobed -i G12_out_sorted.bam > G12_out.bed
+10. bedtools intersect -a Tannerella_forsythia_92A2.gff -b G12_out.bed > int_res.txt
 
-
+END

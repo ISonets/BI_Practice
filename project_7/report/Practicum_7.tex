@@ -1,0 +1,101 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+\usepackage{amsmath}
+\usepackage{hyperref}
+%\usepackage[english]{babel}
+\usepackage{pdfpages}
+
+\usepackage{chemfig}
+\usepackage[left=2cm,right=1cm, top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+\renewcommand{\normalsize}{\fontsize{14}{18pt}\selectfont}
+\newcommand{\specialcell}[2][c]{%
+	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+\renewcommand{\normalsize}{\fontsize{14}{18pt}\selectfont}
+
+\title{   ad }
+\author{ Ignat Sonets, Kamilla Faizullina}
+\date{\empty}
+
+\begin{document}
+	
+		\catcode`\_=\active
+	\catcode`\^=\active
+	
+\maketitle
+ 
+\textbf{Abstract.}   
+ 
+\section{Introduction}
+
+
+
+ 
+ \section{Data}
+Tp make microbiome analysis, we use both sequenced DNA   samples of dental calculus as the experimental sample and the tooth root as a proxy for an environmental control \cite{Data}. The reads were obtained using sequencing machine Roche GS Junior (454). The data are demultiplexed. This data is part  of the research about  dental calculus metagenome \cite{DataResearch}. 
+
+ 
+
+\section{Methods}
+First, we perform analysis of raw 16S data. Next, we use assembled genome and compare results. 
+
+
+ For  microbiome analysis, we use package QIIME2 \cite{quime}. This utilities are specialized for an analysis of raw DNA samples. The programme allows to obtain statistical results for sequence qualities. This is important for quality control and helps us to choose parameters during analysis. Using Quality plot, we can find suitable parameters to filter 16S amplicon  samples from barcode, primer and artifact sequences. 
+ 
+ DADA2 commande from QIIME2 package generates Matrix (Feature table), which contains measure the number of times each feature was observed in each sample. We can consider  features as Operational taxonomic units (OTU). So, this is analogue of clustering OTU.
+ 
+ Next, we can find taxons which are contained in our metagenome samples. QIIME2 contains taxonomy classifiers based on Naive Bayes classifier. We use model pretrained on Greengenes Database \cite{Green}. Database consists of samples of full-length 16S rRNA genes. 
+ 
+ After using taxonomic classifier, we get taxonomic composition which could be visualized as barplots for nice analysis. This is interesting for us as we can find bacterial groups such as Red complex, which is associated with periodontal disease. 
+ 
+ Next, we perform analysis of whole genome. We use utilities MetaPhlAn for profiling the composition of microbe groups \cite{Met}. The approach is based on alignment our sequencing reads to the microbiota database. The MetaPhlAn tool allows to produce  heatmap, which contains distances between samples using Bray–Curtis dissimilarity \cite{BC}.
+ 
+ \section{Results}
+
+
+
+
+
+
+
+
+ 
+ 
+%\newpage 
+%\newpage 
+\begin{thebibliography}{9}
+
+
+
+\bibitem{Data}
+Raiko, Mike (2020): "Dead man's teeth" dataset. figshare. Dataset. https://doi.org/10.6084/m9.figshare.12152040.v3 
+
+
+\bibitem{DataResearch}
+	 Warinner, C., Rodrigues, J., Vyas, R. et al. Pathogens and host immunity in the ancient human oral cavity. Nat Genet 46, 336–344 (2014). https://doi.org/10.1038/ng.2906
+	
+	
+	\bibitem{quime}
+	Bolyen E, Rideout JR, Dillon MR, Bokulich NA, Abnet CC, Al-Ghalith GA, Alexander H, Alm EJ, Arumugam M, Asnicar F, Bai Y, Bisanz JE, Bittinger K, Brejnrod A, Brislawn CJ, Brown CT, Callahan BJ, Caraballo-Rodríguez AM, Chase J, Cope EK, Da Silva R, Diener C, Dorrestein PC, Douglas GM, Durall DM, Duvallet C, Edwardson CF, Ernst M, Estaki M, Fouquier J, Gauglitz JM, Gibbons SM, Gibson DL, Gonzalez A, Gorlick K, Guo J, Hillmann B, Holmes S, Holste H, Huttenhower C, Huttley GA, Janssen S, Jarmusch AK, Jiang L, Kaehler BD, Kang KB, Keefe CR, Keim P, Kelley ST, Knights D, Koester I, Kosciolek T, Kreps J, Langille MGI, Lee J, Ley R, Liu YX, Loftfield E, Lozupone C, Maher M, Marotz C, Martin BD, McDonald D, McIver LJ, Melnik AV, Metcalf JL, Morgan SC, Morton JT, Naimey AT, Navas-Molina JA, Nothias LF, Orchanian SB, Pearson T, Peoples SL, Petras D, Preuss ML, Pruesse E, Rasmussen LB, Rivers A, Robeson MS, Rosenthal P, Segata N, Shaffer M, Shiffer A, Sinha R, Song SJ, Spear JR, Swafford AD, Thompson LR, Torres PJ, Trinh P, Tripathi A, Turnbaugh PJ, Ul-Hasan S, van der Hooft JJJ, Vargas F, Vázquez-Baeza Y, Vogtmann E, von Hippel M, Walters W, Wan Y, Wang M, Warren J, Weber KC, Williamson CHD, Willis AD, Xu ZZ, Zaneveld JR, Zhang Y, Zhu Q, Knight R, and Caporaso JG. 2019. Reproducible, interactive, scalable and extensible microbiome data science using QIIME 2. Nature Biotechnology 37: 852–857. https://doi.org/10.1038/s41587-019-0209-9 
+	
+	
+	\bibitem{Green}
+	McDonald, D., Price, M., Goodrich, J. et al. An improved Greengenes taxonomy with explicit ranks for ecological and evolutionary analyses of bacteria and archaea. ISME J 6, 610–618 (2012). https://doi.org/10.1038/ismej.2011.139
+	
+	\bibitem{Met}
+Integrating taxonomic, functional, and strain-level profiling of diverse microbial communities with bioBakery 3 Francesco Beghini, Lauren J McIver, Aitor Blanco-Miguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, Andrew Maltez Thomas, Paolo Manghi, Mireia Valles-Colomer, George Weingart, Yancong Zhang, Moreno Zolfo, Curtis Huttenhower, Eric A Franzosa, Nicola Segata. bioRxiv preprint (2020)
+	
+	
+	\bibitem{BC}
+	Bray, J. R. and J. T. Curtis. 1957. An ordination of upland forest communities of southern Wisconsin. Ecological Monographs 27:325-349.
+	
+	
+\end{thebibliography}
+
+ 
+
+
+\end{document}
+
+

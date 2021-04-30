@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.6.4)  30 APR 2021 22:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.6.4)  30 APR 2021 22:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -725,18 +725,18 @@ ABD: EveryShipout initializing macros
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 38.
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 37.
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 82.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 82.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 81.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 81.
  (./Practicum_8.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 82.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 82.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 81.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 81.
 Package rerunfilecheck Info: File `Practicum_8.out' has not changed.
 (rerunfilecheck)             Checksum: A02D95553E30B97FF125B1AA17CF9044;47.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 82.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 81.
  ) 
 Here is how much of TeX's memory you used:
  18964 strings out of 492615
@@ -749,7 +749,7 @@ Here is how much of TeX's memory you used:
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Practicum_8.pdf (2 pages, 43762 bytes).
+Output written on Practicum_8.pdf (2 pages, 43753 bytes).
 PDF statistics:
  44 PDF objects out of 1000 (max. 8388607)
  36 compressed objects within 1 object stream

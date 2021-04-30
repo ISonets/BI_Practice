@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.6.4)  30 APR 2021 23:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2020.6.4)  30 APR 2021 23:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -749,7 +749,7 @@ Here is how much of TeX's memory you used:
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share
 /texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on Practicum_8.pdf (2 pages, 44140 bytes).
+Output written on Practicum_8.pdf (2 pages, 44139 bytes).
 PDF statistics:
  46 PDF objects out of 1000 (max. 8388607)
  38 compressed objects within 1 object stream

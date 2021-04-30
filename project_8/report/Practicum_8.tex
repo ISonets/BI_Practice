@@ -13,8 +13,8 @@
  \newcommand{\specialcell}[2][c]{%
  	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
  \renewcommand{\normalsize}{\fontsize{14}{18pt}\selectfont}
- 
- \title{  }
+ \usepackage{hyperref}
+ \title{a RepSeq data analysis tutorial }
  \author{ Ignat Sonets, Kamilla Faizullina}
  \date{\empty}
  
@@ -25,14 +25,15 @@
  	
  	\maketitle
  	
- 	\textbf{Abstract.}  In this work, we follow a RepSeq data analysis tutorial 
- 	
+ 	\textbf{Abstract.}  In this work, we follow a RepSeq data analysis tutorial.  
  	\section{Introduction}
+In this work, we follow \href{https://github.com/antigenomics/repseq-annotation-tutorial}{tutorial}, which covers some analysis of RepSeq data.
+
+
+We use the samples from study "Diversity and clonal selection in the human T-cell repertoire" \cite{pnas}. Using information about T-cell subpopulations and phenotypes, we can attempt to get immunological properties from unlabeled samples. 
+
  
- 
- \section{Results}
- 
-   	\begin{table}[h!]
+   	\begin{table}[h]
  	\centering
  	\begin{tabular}{|c|c|c|c|c|}
  		\hline
@@ -62,9 +63,14 @@
 \end{table}
 
 
-
+\newpage
  	\begin{thebibliography}{9}
  		
+ 		\bibitem{pnas}
+ 		
+ 		Age and T-cell repertoire
+ 		Qian Qi, Yi Liu, Yong Cheng, Jacob Glanville, David Zhang, Ji-Yeun Lee, Richard A. Olshen, Cornelia M. Weyand, Scott D. Boyd, Jörg J. Goronzy
+ 		Proceedings of the National Academy of Sciences Sep 2014, 111 (36) 13139-13144; DOI: 10.1073/pnas.1409155111
  		
  		
  

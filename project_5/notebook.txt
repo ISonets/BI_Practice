@@ -1,0 +1,11 @@
+0. Downloading data
+  -23andme data form GithubGuy
+  -GRCh37.p13 SNP database
+  -plink
+1. Initial manipulations
+  /plink --23file ../humanSNP.txt --recode vcf --out humanSNP
+  bedtools intersect -a humanSNP.vcf -b ../clinvar.vcf > intersected.vcf
+2. VEP(done online via http://grch37.ensembl.org/Homo_sapiens/Tools/VEP)
+3. Haplogroup analysis(done with https://dna.jameslick.com/mthap/)
+NB: malformed header after converting, maybe converting to  VCF4 will help.
+
